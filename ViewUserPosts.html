@@ -1,0 +1,34 @@
+<html>
+	<head>
+		<title> Creating User </title>
+
+	</head>
+
+	<body>
+
+  <form action="ViewUserPosts.php" method="POST">
+      <b>Please select a user from the list below</b><br>
+      <?php
+        $mysqli = new mysqli("mysql.eecs.ku.edu", "t695l633", "ae4aaKi3", "t695l633");
+        if ($mysqli->connect_errno) {
+            printf("Connect failed: %s\n", $mysqli->connect_error);
+            exit();
+        }
+        echo  "<select name='user'>";
+
+          if ($result = $mysqli->query("SELECT * FROM Users"))
+          {
+            while ($row = $result->fetch_assoc()) {
+              $x=$row["user_id"];
+              echo    "<option value='$x'>$x</option>";
+              echo "<br>";
+            }
+          }
+        echo  "</select>";
+        $mysqli->close();
+      ?>
+      <input type="submit" value="Select">
+    </form>
+
+	</body>
+</html>
